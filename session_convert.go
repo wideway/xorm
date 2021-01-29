@@ -69,11 +69,15 @@ func (session *Session) str2Time(col *core.Column, data string) (outTime time.Ti
 		x, err = time.ParseInLocation("2006-01-02 15:04:05", st, parseLoc)
 		//session.engine.logger.Debugf("time(6) key[%v]: %+v | sdata: [%v]\n", col.FieldName, x, sdata)
 	} else {
-		outErr = fmt.Errorf("unsupported time format %v", sdata)
+		//outErr = fmt.Errorf("unsupported time format %v", sdata)
+		outErr = nil
+		outTime = time.Date(0, 01, 01, 0, 0, 0, 0, time.Local)
 		return
 	}
 	if err != nil {
-		outErr = fmt.Errorf("unsupported time format %v: %v", sdata, err)
+		//outErr = fmt.Errorf("unsupported time format %v: %v", sdata, err)
+		outErr = nil
+		outTime = time.Date(0, 01, 01, 0, 0, 0, 0, time.Local)
 		return
 	}
 	outTime = x.In(session.engine.TZLocation)
